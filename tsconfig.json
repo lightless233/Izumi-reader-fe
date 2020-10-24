@@ -9,6 +9,8 @@
     "skipLibCheck": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
+    "noImplicitAny": false,
+    "strictNullChecks": false,
     "sourceMap": true,
     "baseUrl": ".",
     "types": [
