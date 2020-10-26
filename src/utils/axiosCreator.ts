@@ -1,7 +1,6 @@
 import axios from "axios";
 import config from "@/config";
 import router from '@/router';
-import cookies from "js-cookie";
 
 const service = axios.create({
     baseURL: config.baseURL

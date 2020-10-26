@@ -1,5 +1,4 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
-import cookies from "js-cookie";
 
 const routes: Array<RouteRecordRaw> = [
   { path: '/', name: "home", component: () => import("@/views/Home.vue"), meta: { needLogin: true } },
