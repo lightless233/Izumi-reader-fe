@@ -80,9 +80,11 @@ export default defineComponent({
           password: md5(result.password),
         };
         const response = await doLogin(loginData);
+        console.log("response", response);
         const data = response.data;
         if (data.code === 2000) {
           this.$message.success("登录成功!");
+          window.localStorage.setItem("token", response.headers["x-readertoken"]);
           this.$router.replace("home");
         } else {
           this.$message.error("账号或密码错误!");
