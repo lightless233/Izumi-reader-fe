@@ -22,3 +22,21 @@ export default defineComponent({
   },
 });
 </script>
+
+<style>
+.app-sidebar {
+  height: 100vh;
+  font-size: 20px;
+  overflow-y: auto;
+  /* background-color: #f6f7f8; */
+  background: #f6f7f8;
+  border-right: 1px solid #efefef;
+}
+
+.app-content {
+  height: 100vh;
+  overflow-y: auto;
+  font-size: 30px;
+  background-color: #fff;
+}
+</style>
