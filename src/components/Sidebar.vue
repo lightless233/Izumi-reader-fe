@@ -71,7 +71,13 @@ export default defineComponent({
   },
   async mounted() {
     // TODO: move to service
-    const response = await axios.get("/api/v1/feed/list");
+    let response = undefined;
+    try {
+      response = await axios.get("/api/v1/feed/list");
+    } catch (e) {
+      this.$router.replace("/error");
+      return;
+    }
     const data = response.data;
     if (data.code === 2000) {
       //
