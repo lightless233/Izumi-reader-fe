@@ -4,7 +4,6 @@
       <a-button
         style="width: 90%; margin-top: 40px"
         type="default"
-        size="large"
       >
         添加订阅源
       </a-button>
@@ -75,6 +74,7 @@ export default defineComponent({
     try {
       response = await axios.get("/api/v1/feed/list");
     } catch (e) {
+      console.log(e)
       this.$router.replace("/error");
       return;
     }

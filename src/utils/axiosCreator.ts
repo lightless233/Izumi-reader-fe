@@ -14,7 +14,8 @@ service.interceptors.response.use(
         if (response.status === 200) {
             if (response.data.code && response.data.code === 6001) {
                 router.push("login");
-                return response;
+                // return Promise.resolve(response);
+                return Promise.reject(response);
             }
             return Promise.resolve(response);
         } else {
@@ -25,7 +26,7 @@ service.interceptors.response.use(
 
 service.interceptors.request.use(function (config) {
     // 每次请求前，把 token 放到请求头里
-    console.log("config", config);
+    console.log("[BEFORE REQUEST] config: ", config);
     if (!config.url.startsWith("/api/")) {
         return config;
     }
