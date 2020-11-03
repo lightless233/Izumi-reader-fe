@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
-import jwt from "jsonwebtoken";
+import jwt, { TokenExpiredError } from "jsonwebtoken";
 import config from "@/config";
 
 const routes: Array<RouteRecordRaw> = [
@@ -27,14 +27,12 @@ const routes: Array<RouteRecordRaw> = [
   }
 ]
 
+
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
 });
 
-function checkToken(token: string) {
-  return jwt.verify(token, config.jwtPublicKey);
-}
 
 router.beforeEach((to, from, next) => {
 
@@ -49,23 +47,23 @@ router.beforeEach((to, from, next) => {
       console.error("token is empty.");
       next("login");
     }
-    
-    try{
-      console.log(`${TAG} pk: ${config.jwtPublicKey}`)
-      const result = checkToken(token);
-      console.log(`${TAG} result: `, result);
-      // todo here
-      
-    } catch (e) {
-      console.error(`${TAG} invalid token.`)
-      next("login");
-    }
-    
-    next();
 
+    try {
+      const result = jwt.verify(token, config.jwtPublicKey);
+      console.log(`${TAG} jwt result: `, result);
+    } catch (error) {
+      if (error instanceof TokenExpiredError) {
+        console.log(`${TAG} token expired..`);
+        next("login");
+      } else {
+        console.log(`${TAG} Invalid Token, error: `, error);
+        next("login");
+      }
+    }
+    next();
   } else {
     next();
   }
 })
 
-export default router
+export default router;

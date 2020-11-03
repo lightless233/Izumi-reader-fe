@@ -27,9 +27,11 @@
               <a-button
                 style="width: 120px"
                 type="primary"
+                :loading="loading"
                 @click="handleLoginClick"
-                >登录</a-button
               >
+                登录
+              </a-button>
             </a-col>
             <a-col :span="5">
               <a-button type="link">还没有账户？点我注册！</a-button>
@@ -45,7 +47,7 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import md5 from "js-md5";
-import {doLogin} from "@/services/login";
+import { doLogin } from "@/services/login";
 
 export default defineComponent({
   name: "Login",
@@ -65,6 +67,8 @@ export default defineComponent({
           { min: 6, message: "密码长度太短!" },
         ],
       },
+
+      loading: false,
     };
   },
 
@@ -79,18 +83,25 @@ export default defineComponent({
           email: result.email,
           password: md5(result.password),
         };
+        this.loading = true;
         const response = await doLogin(loginData);
         console.log("response", response);
         const data = response.data;
         if (data.code === 2000) {
           this.$message.success("登录成功!");
-          window.localStorage.setItem("token", response.headers["x-readertoken"]);
+          window.localStorage.setItem(
+            "token",
+            response.headers["x-readertoken"]
+          );
           this.$router.replace("home");
         } else {
           this.$message.error("账号或密码错误!");
         }
       } catch (error) {
-        console.log("error", error);
+        this.$message.error("网络异常.");
+        console.error("Login Error: ", error);
+      } finally {
+        this.loading = false;
       }
     },
   },

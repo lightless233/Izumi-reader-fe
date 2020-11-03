@@ -30,8 +30,8 @@ service.interceptors.request.use(function (config) {
     if (!config.url.startsWith("/api/")) {
         return config;
     }
-    const token = window.localStorage.getItem("token");
-    if (token === null || token === "") {
+    const token = window.localStorage.getItem("token") || undefined;
+    if (!token) {
         router.push("login");
     } else {
         config.headers["X-ReaderToken"] = token;
