@@ -5,7 +5,7 @@
     </a-layout-sider>
     <a-layout>
       <a-layout-content class="app-content">
-        <a-skeleton active />
+          <router-view></router-view>
       </a-layout-content>
     </a-layout>
   </a-layout>
@@ -38,5 +38,6 @@ export default defineComponent({
   overflow-y: auto;
   font-size: 30px;
   background-color: #fff;
+  padding-top: 48px;
 }
 </style>

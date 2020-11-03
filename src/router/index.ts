@@ -11,7 +11,13 @@ const routes: Array<RouteRecordRaw> = [
     path: '/home',
     name: "home",
     component: () => import("@/views/Home.vue"),
-    meta: { needLogin: true }
+    meta: { needLogin: true },
+    children: [
+      {
+        path: "addFeed",
+        component: () => import("@/views/feed/AddFeed.vue"),
+      }
+    ]
   },
   {
     path: "/login",
