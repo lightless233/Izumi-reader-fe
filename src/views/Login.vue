@@ -75,6 +75,7 @@ export default defineComponent({
   methods: {
     async handleLoginClick() {
       // https://stackoverflow.com/questions/52109471/typescript-in-vue-property-validate-does-not-exist-on-type-vue-element
+      // eslint-disable-next-line
       const loginForm: any = this.$refs.loginForm;
 
       try {

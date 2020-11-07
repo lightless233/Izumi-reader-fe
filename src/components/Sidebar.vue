@@ -4,6 +4,7 @@
       <a-button
         style="width: 90%; margin-top: 40px"
         type="default"
+        @click="this.$router.push('addFeed')"
       >
         添加订阅源
       </a-button>
